@@ -1,0 +1,8 @@
+.courseType {
+    width: 12.5%;
+}
+.sectionView{
+    border-color: grey green grey blue;
+    border-style: solid;
+    border-width: 1px 0px 1px 0px;
+}

@@ -1,0 +1,82 @@
+<div>
+	<div class = "selectionArea">
+		<select class = "courseType school" ng-change = "requestService.requestOnSchools()" ng-model = "requestService.schoolName">
+			<option ng-repeat='school in sharedProperties.getSchools()'
+					ng-value='school.ident'
+					ng-bind='school.display'>
+			</option>
+		</select>
+		<select class = "courseType term" ng-change = "requestService.requestOnTerms()" ng-model = "requestService.termName">
+			<option ng-repeat="term in sharedProperties.getTerms()"
+					ng-value="term.ident"
+					ng-bind="term.display">
+			</option>
+		</select>
+		<select class = "courseType major" ng-change = "requestService.requestOnMajors()" ng-model = "requestService.majorName">
+			<option ng-repeat="major in sharedProperties.getMajors()"
+					ng-value="major.ident"
+					ng-bind="major.display">
+			</option>
+		</select>
+		<select class = "courseType course" ng-change = "requestService.requestOnCourses()" ng-model = "requestService.courseName">
+			<option ng-repeat="course in sharedProperties.getCourses()"
+					ng-value="course.ident"
+					ng-bind="course.display">
+			</option>
+		</select>
+		<button ng-show="sharedProperties.getReadyToPick()"
+				ng-click="requestService.pickClass()">Pick!</button>
+	</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <table id = "selectedList">
+                    <tr ng-repeat="course in sharedProperties.getChosenCourses()">
+                        <td ng-bind="course.classTag"></td>
+                        <td ng-bind="course.name"></td>
+                        <td><button ng-click="requestService.removeClass($index)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-repeat="section in sharedProperties.getSections()" class = "sectionView">
+                <h2 ng-bind="sharedProperties.getFocusedCourse().classTag + '-' + section.ident"></h2>
+                <h3 ng-bind="section.credits + ' credit hours'"></h3>
+                <p ng-bind="section.instructor.lname + ', ' + section.instructor.fname"></p>
+                <p ng-bind="'CRN: ' + section.call_number"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <span ng-show="sharedProperties.getChosenCourses().length > 0">Class time limited at (Mon - Fri): </span>
+            <div style="height: 200px" ng-show="sharedProperties.getChosenCourses().length > 0">
+                <rzslider rz-slider-model="selectCtrl.morningTimeCons[0]" rz-slider-high="selectCtrl.afternoonTimeCons[0]" rz-slider-options="selectCtrl.sliderOptions"></rzslider>
+                <rzslider rz-slider-model="selectCtrl.morningTimeCons[1]" rz-slider-high="selectCtrl.afternoonTimeCons[1]" rz-slider-options="selectCtrl.sliderOptions"></rzslider>
+                <rzslider rz-slider-model="selectCtrl.morningTimeCons[2]" rz-slider-high="selectCtrl.afternoonTimeCons[2]" rz-slider-options="selectCtrl.sliderOptions"></rzslider>
+                <rzslider rz-slider-model="selectCtrl.morningTimeCons[3]" rz-slider-high="selectCtrl.afternoonTimeCons[3]" rz-slider-options="selectCtrl.sliderOptions"></rzslider>
+                <rzslider rz-slider-model="selectCtrl.morningTimeCons[4]" rz-slider-high="selectCtrl.afternoonTimeCons[4]" rz-slider-options="selectCtrl.sliderEndOptions"></rzslider>
+            </div>
+            <button ng-click="selectCtrl.calculateSchedule()"
+                    ng-show="sharedProperties.getChosenCourses().length > 0">Calculate!</button>
+            <div ng-show="sharedProperties.getSchedules().length > 0">
+                <!--<button ng-click="scheduleService.uploadSchedules()" ng-show="sharedProperties.getLoginStatus()">Upload!</button>-->
+                <select class = "schedulesSelector" ng-model = "selectCtrl.scheduleID">
+                    <option ng-repeat="schedule in sharedProperties.getSchedules()"
+                            ng-value="$index"
+                            ng-bind="'Schedule {{$index + 1}}'">
+                    </option>
+                </select>
+                <button ng-click="sharedProperties.removeScheduleByID(selectCtrl.scheduleID);
+                                  scheduleService.uploadSchedules()">Remove schedule</button>
+                <button ng-click="sharedProperties.emptySchedules();
+                                  scheduleService.uploadSchedules()">Clear</button>
+            </div>
+            <div ng-repeat="course in sharedProperties.getSchedules()[selectCtrl.scheduleID].courses" class = "sectionView">
+                <h2>{{course.ref}}-{{course.section.section_id}}</h2>
+                <p ng-bind="course.section.instructor"></p>
+                <p ng-bind="'CRN: ' + course.section.ref_num"></p>
+                <p ng-repeat="timeslot in course.section.timeSlots">
+                    {{timeslot.day | dayFilter}}: {{timeslot.start_time | timeFilter}} - {{timeslot.end_time | timeFilter}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

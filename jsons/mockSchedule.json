@@ -1,0 +1,120 @@
+[{
+  "versionId" : 1,
+  "semester" : "fall 2016",
+  "email": "test1@gmail.com",
+  "courses" : 
+  [{
+    "name" : "intro to HPC",
+    "ref" : "CX4220",
+    "section" : 
+    {
+      "section_id" : "A", 
+      "ref_num" : "21958",
+      "location" : ["klaus2156", "klaus2156"],
+      "instructor" : "Someone",
+      "timeSlots": 
+        [{
+          "day" : "T", 
+          "start_time" : "935", 
+          "end_time" : "1055"  
+        }, {
+          "day" : "TH", 
+          "start_time" : "935", 
+          "end_time" : "1055"    
+        }],
+      "seats" : 
+      [{
+        "capacity" : "60",
+        "actual" : "58",
+        "remainging": "2"
+      }]
+    }
+  }, {
+    "name" : "robotics",
+    "ref" : "CS3630",
+    "section" : 
+    {
+      "section_id" : "B", 
+      "ref_num" : "21972",
+      "location" : ["clough154", "clough154"],
+      "instructor" : "Someone",
+      "timeSlots": 
+        [{
+          "day" : "T", 
+          "start_time" : "1505", 
+          "end_time" : "1625"  
+        }, {
+          "day" : "TH", 
+          "start_time" : "1505", 
+          "end_time" : "1625"    
+        }],
+      "seats" : 
+      [{
+        "capacity" : "60",
+        "actual" : "58",
+        "remainging": "2"
+      }]
+    }
+  }]
+},
+{
+  "versionId" : 5,
+  "semester" : "fall 2016",
+  "email": "test1@gmail.com",
+  "courses" : 
+  [{
+    "name" : "intro to HPC",
+    "ref" : "CX4220",
+    "section" : 
+    {
+      "section_id" : "A", 
+      "ref_num" : "21958",
+      "location" : ["klaus2156", "klaus2156"],
+      "instructor" : "Someone",
+      "timeSlots": 
+        [{
+          "day" : "T", 
+          "start_time" : "935", 
+          "end_time" : "1055"  
+        }, {
+          "day" : "TH", 
+          "start_time" : "935", 
+          "end_time" : "1055"    
+        }],
+      "seats" : 
+      [{
+        "capacity" : "60",
+        "actual" : "58",
+        "remainging": "2"
+      }]
+    }
+  }, {
+    "name" : "robotics",
+    "ref" : "CS3630",
+    "section" : 
+    {
+      "section_id" : "B", 
+      "ref_num" : "21972",
+      "location" : ["clough154", "clough154"],
+      "instructor" : "Someone",
+      "timeSlots": 
+        [{
+          "day" : "T", 
+          "start_time" : "1505", 
+          "end_time" : "1625"  
+        }, {
+          "day" : "TH", 
+          "start_time" : "1505", 
+          "end_time" : "1625"    
+        }],
+      "seats" : 
+      [{
+        "capacity" : "60",
+        "actual" : "58",
+        "remainging": "2"
+      }]
+    }
+  }]
+}]
+
+

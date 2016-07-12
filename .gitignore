@@ -1,0 +1,17 @@
+#OS File
+*.DS_Store
+
+#node.js Module
+*/node_modules/
+node_modules/*
+node_modules
+node_modules/
+
+#log files
+*.log
+
+#db
+*/db/
+db/*
+db
+db/

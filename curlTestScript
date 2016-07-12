@@ -1,0 +1,3 @@
+curl -H "Content-Type: application/json" -X POST -d '{"email":"xyz","password":"xyz"}' http://localhost:3000/user/test1_us@gmail.com
+curl -H "Content-Type: application/json" -X PUT -d '{"email":"xyz","password":"xyz"}' http://localhost:3000/user/
+curl -H "Content-Type: application/json" -X GET -d '{"email":"test1@gmail.com","forVersionID":"True"}' http://localhost:3000/schedules/test1@gmail.com/True

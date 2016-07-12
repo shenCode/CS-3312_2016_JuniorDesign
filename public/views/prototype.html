@@ -1,0 +1,108 @@
+<div>
+    <nav class="navbar navbar-inverse center">
+    
+    <div class="col-sm-3">
+    
+    </div>
+
+    <div class="col-sm-3">
+        <ui-select ng-model="requestService.schoolName" theme="selectize" style="max-width: 200px;" on-select="requestService.requestOnSchools()">
+        <ui-select-match placeholder="Select school...">{{$select.selected.display}}</ui-select-match>
+            <ui-select-choices repeat="item.ident as item in sharedProperties.getSchools() | filter: $select.search" ng-value='school.ident'>
+                <div ng-bind-html="item.display | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    
+    <div class="col-sm-3">
+    <ui-select ng-model="requestService.termName" theme="selectize" style="max-width: 200px;" on-select="requestService.requestOnTerms()">
+        <ui-select-match placeholder="Select term...">{{$select.selected.display}}</ui-select-match>
+        <ui-select-choices repeat="item.ident as item in sharedProperties.getTerms() | filter: $select.search">
+            <div ng-bind-html="item.display | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+    </div>
+    <div class="col-sm-3">
+    <div ng-show="sharedProperties.getSchedules().length > 0">
+        <!--<button ng-click="scheduleService.uploadSchedules()" ng-show="sharedProperties.getLoginStatus()">Upload!</button>-->
+        <select class = "schedulesSelector" ng-model = "ctrl.scheduleID" ng-change="ctrl.changeSchedule(sharedProperties.getSchedules()[ctrl.scheduleID])">
+            <option ng-repeat="schedule in sharedProperties.getSchedules()"
+                ng-value="$index"
+                ng-bind="'Schedule {{$index + 1}}'">
+            </option>
+            </select>
+                <button ng-click="sharedProperties.removeScheduleByID(ctrl.scheduleID);
+                        scheduleService.uploadSchedules()">Remove schedule</button>
+                <button ng-click="sharedProperties.emptySchedules();
+                        scheduleService.uploadSchedules()">Clear</button>
+        </div>
+    </div>
+</div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7" style="background-image:url(table.png); background-repeat: no-repeat; background-size: 100% 100%; height:100vh;">
+            <button type="button" class="btn btn-secondary" ng-repeat="item in ctrl.allSections" ng-if="ctrl.displayStyle[item]['state']" ng-click="ctrl.changeState2(item)" ng-style="{'position':'absolute', 'width':ctrl.displayStyle[item]['width'], 'height':ctrl.displayStyle[item]['height'], 'background-color':ctrl.displayStyle[item]['color'], 'top':ctrl.displayStyle[item]['top'], 'left':ctrl.displayStyle[item]['left']}" data-html="true" data-toggle="tooltip" data-placement="top" title={{ctrl.displayStyle[item]['display']}} tooltip>
+                <font size = "3"> {{ctrl.displayStyle[item]['courseid']}}<br/> </font><br/>
+            </button>
+            <!--style="background-image:url(caonima.jpg); background-repeat: no-repeat; background-size: 100% 100%; height:100vh;"-->
+            <!---webkit-background-size:cover; -moz-background-size:cover; -o-background-size:cover; background-size:cover; -->
+        </div>
+        <div class="col-md-5">
+            <div class="ng-cloak">
+                <div class="col-md-8" style="height:100vh;">
+                    <div class="row" style="height:30%;">
+                        <ui-select ng-model="requestService.majorName" theme="selectize" on-select="ctrl.showNextCourse()">
+                            <ui-select-match placeholder="Select major...">{{$select.selected.display}}</ui-select-match>
+                            <ui-select-choices repeat="item.ident as item in sharedProperties.getMajors() | filter: $select.search">
+                                <div ng-bind-html="item.display | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <ui-select ng-model="requestService.courseName" theme="selectize" ng-if="ctrl.displayCourse" on-select="ctrl.showSections()">
+                            <ui-select-match placeholder="Select course...">{{$select.selected.display}}</ui-select-match>
+                            <ui-select-choices repeat="item.ident as item in sharedProperties.getCourses() | filter: $select.search">
+                                <div ng-bind-html="item.display | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <button ng-show="sharedProperties.getReadyToPick()"
+                                ng-click="requestService.pickClass()">Pick!</button>
+                        
+                        <!--<button ng-click="sharedProperties.setSchedules(autoScheduler.getSchedules())">Calculate!</button>-->
+                        <button ng-show="sharedProperties.getReadyToPick()"
+                                ng-click="scheduleService.uploadSchedules()">Upload!</button>
+                        <div ng-repeat="course in sharedProperties.getChosenCourses()">
+                        {{course.classTag}}-{{course.name}}
+                        <button ng-show="sharedProperties.getReadyToPick()"
+                                ng-click="requestService.removeClass($index)">Delete</button>
+                        </div>
+
+                    </div>
+                    <div class="row" style="height:43%; overflow-y: auto">
+                        <div class="col-md-12" align="center">
+                            <button type="button" class="btn btn-primary" ng-show="ctrl.displaySection" ng-repeat="item in sharedProperties.getSections()" ng-click="ctrl.changeState(item)">
+                                Instructor: {{item.instructor.fname + item.instructor.lname}}<br/>
+                                Section: {{sharedProperties.getFocusedCourse().classTag}}-{{item.ident}}<br/>
+                                Seats: {{item.seats.remaining}}/{{item.seats.capacity}}<br/>
+                                CRN: {{item.call_number}}</br/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="height:27%;">
+                        <span ng-show="sharedProperties.getChosenCourses().length > 0">Class time limited at (Mon - Fri): </span>
+                        <div style="height: 200px" ng-show="sharedProperties.getChosenCourses().length > 0">
+                            <rzslider rz-slider-model="ctrl.morningTimeCons[0]" rz-slider-high="ctrl.afternoonTimeCons[0]" rz-slider-options="ctrl.sliderOptions"></rzslider>
+                            <rzslider rz-slider-model="ctrl.morningTimeCons[1]" rz-slider-high="ctrl.afternoonTimeCons[1]" rz-slider-options="ctrl.sliderOptions"></rzslider>
+                            <rzslider rz-slider-model="ctrl.morningTimeCons[2]" rz-slider-high="ctrl.afternoonTimeCons[2]" rz-slider-options="ctrl.sliderOptions"></rzslider>
+                            <rzslider rz-slider-model="ctrl.morningTimeCons[3]" rz-slider-high="ctrl.afternoonTimeCons[3]" rz-slider-options="ctrl.sliderOptions"></rzslider>
+                            <rzslider rz-slider-model="ctrl.morningTimeCons[4]" rz-slider-high="ctrl.afternoonTimeCons[4]" rz-slider-options="ctrl.sliderEndOptions"></rzslider>
+                        </div>
+                        <button ng-show="sharedProperties.getReadyToPick()"
+                                ng-click="ctrl.calculate()">Generate Schedules</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

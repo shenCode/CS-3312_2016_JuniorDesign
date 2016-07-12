@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app = "app">
+    <head>
+        <meta charset="utf-8">
+        <title>Class Retriever Prototype</title>
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <!--Bootstrap css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.11.0/rzslider.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.16.1/select.css">
+    </head>
+    <body class = "mainPage">
+        <nav class="navbar navbar-default" ng-controller="navBarController as barCtrl">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/prototype">Auto Scheduler</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right" ng-if="!sharedProperties.getLoginStatus()">
+                    <li><a href="#/Login">Login</a></li>
+                    <li><a href="#/Signup">Sign up</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if="sharedProperties.getLoginStatus()">
+                    <li><a href="#" ng-bind="sharedProperties.getEmail()"></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div ng-view></div>
+        <!--<div ng-controller = "dbController">
+            <button ng-click="dbservice.getUserWithName()">GET a user</button>
+        </div>-->
+        
+
+        <!--libs -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.16.1/select.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.11.0/rzslider.min.js"></script>
+        <!--Minified bootstrap js-->
+        <<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <!--Custome angular files -->
+        <script src="javascripts/app.js"></script>
+        <!-- services / factories -->
+        <script src="javascripts/services/requestCourseoff.js"></script>
+        <script src="javascripts/services/autoScheduler.js"></script>
+        <script src="javascripts/services/requestService.js"></script>
+        <script src="javascripts/services/sharedProperties.js"></script>
+        <script src="javascripts/services/scheduleService.js"></script>
+        <script src="javascripts/services/User.js"></script>
+        <script src="javascripts/services/Schedule.js"></script>
+        <script src="javascripts/services/dbservice.js"></script>
+        <!--controllers-->
+        <script type="text/javascript" src="javascripts/controllers/everything.js"></script>
+    </body>
+</html>
